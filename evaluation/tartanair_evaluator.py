@@ -42,5 +42,12 @@ if __name__ == "__main__":
     
     # scale = True for monocular track, scale = False for stereo track
     aicrowd_evaluator = TartanAirEvaluator()
-    result = aicrowd_evaluator.evaluate_one_trajectory('pose_gt.txt', 'pose_est.txt', scale=True)
+    
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("poses_gt", help="input ground truth pose path file in xyzq format")
+    parser.add_argument(
+        "poses_input", help="input file path to evaluate")
+    args = parser.parse_args()
+    result = aicrowd_evaluator.evaluate_one_trajectory(args.poses_gt, args.poses_input, scale=True)
     print(result)
